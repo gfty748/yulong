@@ -23,6 +23,10 @@ public class ShoppingServlet extends HttpServlet {
         request.setAttribute("tickets",tickets);
         int total = new JSUtil().getTotal();
         request.setAttribute("total",total);
+        String http=request.getParameter("http");
+        if (http.equals("orders")){
+            request.getRequestDispatcher("/shoppingCartOrders.jsp").forward(request,response);
+        }
         request.getRequestDispatcher("/shoppingCart.jsp").forward(request,response);
     }
 

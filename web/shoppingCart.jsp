@@ -158,14 +158,11 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
-
                             </table>
                         </div>
-
                         <div class="shopping-btn">
-                            <a href="javascript:">提交订单</a> <span>应付总额： <font>￥${total}.00</font></span>
+                            <a href="ShoppingServlet?http=orders">提交订单</a> <span>应付总额： <font>￥${total}.00</font></span>
                         </div>
-
                     </div>
 
 
