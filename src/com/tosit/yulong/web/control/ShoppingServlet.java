@@ -17,8 +17,19 @@ import java.util.List;
 @WebServlet( "/ShoppingServlet")
 public class ShoppingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取购物车信息
         List<Ticket> tickets = new DaoImpl().queryCarts();
         request.setAttribute("tickets",tickets);
+        //计算现有票务总价
+        int price =0;
+        int number =0;
+        int total =0;
+        for (Ticket tEach:tickets ) {
+            price=tEach.getT_price();
+            number=tEach.getT_number();
+            total +=price*number;
+        }
+        request.setAttribute("total",total);
         request.getRequestDispatcher("/shoppingCart.jsp").forward(request,response);
     }
 

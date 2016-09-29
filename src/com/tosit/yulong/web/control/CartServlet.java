@@ -21,24 +21,36 @@ public class CartServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         int id = Integer.parseInt(request.getParameter("t_id"));
-        System.out.println("CartServlet 拿到了 id = " + id );
-        Ticket ticket = new DaoImpl().ticketByt_id(id);
-        int c_id = ticket.getT_id();
-        String c_name = ticket.getT_name();
-        int c_price = ticket.getT_price();
-        List<Ticket> tickets = new DaoImpl().queryCarts();
-        boolean isHas = false;
-        String message = "";
-        for (Ticket tEach: tickets ) {
-            if (tEach.getT_id() == id){
-                isHas = true;
-                out.print("购物车已经存在此票！");
-                return;
+        String opp = request.getParameter("opp");
+
+        if(opp.equals("add")){
+            System.out.println("CartServlet 拿到了 id = " + id +"丨opp ="+opp);
+            System.out.println("执行 addCart()");
+            //执行购物车添加
+            Ticket ticket = new DaoImpl().ticketByt_id(id);
+            int c_id = ticket.getT_id();
+            String c_name = ticket.getT_name();
+            int c_price = ticket.getT_price();
+            List<Ticket> tickets = new DaoImpl().queryCarts();
+            boolean isHas = false;
+            String message = "";
+            for (Ticket tEach: tickets ) {
+                if (tEach.getT_id() == id){
+                    isHas = true;
+                    out.print("购物车已经存在此票！");
+                    return;
+                }
             }
-        }
-        if (!isHas){
-            new DaoImpl().addCartByt_id(c_id,c_name,c_price);
-            out.print("成功加入购物车！");
+            if (!isHas){
+                new DaoImpl().addCartByt_id(c_id,c_name,c_price);
+                out.print("成功加入购物车！");
+            }
+        }else if (opp.equals("delete")){
+            //执行购物车删除
+            System.out.println("CartServlet 拿到了 id = " + id +"丨opp ="+opp);
+            System.out.println("执行 delCart()");
+            new DaoImpl().delCartByt_id(id);
+            out.print("成功从购物车删除！");
         }
     }
 

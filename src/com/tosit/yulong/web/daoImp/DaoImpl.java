@@ -236,7 +236,7 @@ public class DaoImpl implements Dao {
 
     @Override
     public void addCartByt_id(int t_id,String t_name,int t_price) {
-        MySql="insert into cart values(?,?,?)";
+        MySql="insert into cart(c_id,c_name,c_price) values(?,?,?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(MySql);
             int i = 1;
@@ -251,8 +251,17 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public void delCattByt_id(int t_id) {
-
+    public void delCartByt_id(int t_id) {
+        MySql="delete from cart where c_id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(MySql);
+            int i = 1;
+            pstmt.setInt(i++,t_id);
+            int count = pstmt.executeUpdate();
+            System.out.println("所有影响行数:"+count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -267,7 +276,8 @@ public class DaoImpl implements Dao {
                 int c_id = rs.getInt("c_id");
                 String c_name = rs.getString("c_name");
                 int c_price = rs.getInt("c_price");
-                ticket= new Ticket(c_id,c_name,c_price);
+                int c_number= rs.getInt("c_number");
+                ticket= new Ticket(c_id,c_name,c_price,c_number);
                 tickets.add(ticket);
             }
         } catch (SQLException e) {

@@ -9,7 +9,7 @@ public class Ticket {
     private String t_description;
     private String t_img;
     private int t_price;
-
+    private int t_number;
     public Ticket() {
         super();
     }
@@ -22,10 +22,11 @@ public class Ticket {
         this.t_price = t_price;
     }
 
-    public Ticket(int t_id, String t_name, int t_price) {
+    public Ticket(int t_id, String t_name, int t_price,int t_number) {
         this.t_id = t_id;
         this.t_name = t_name;
         this.t_price = t_price;
+        this.t_number =t_number;
     }
 
     public int getT_id() {
@@ -66,5 +67,13 @@ public class Ticket {
 
     public void setT_price(int t_price) {
         this.t_price = t_price;
+    }
+
+    public int getT_number() {
+        return t_number;
+    }
+
+    public void setT_number(int t_number) {
+        this.t_number = t_number;
     }
 }
