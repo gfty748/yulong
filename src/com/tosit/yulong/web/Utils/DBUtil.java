@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * Created by zx on 2016/9/25.
  */
 public class DBUtil {
-    private String url ="jdbc:mysql://192.168.1.116:3306/yulong";
+    private String url ="jdbc:mysql://localhost:3306/yulong";
     private String username ="root";
     private String password ="root";
     Connection conn;
