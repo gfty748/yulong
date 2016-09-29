@@ -185,12 +185,13 @@ public class DaoImpl implements Dao {
 
     /**
      * 获取所有门票
+     *
      * @return
      */
     @Override
     public List<Ticket> ticketsAll() {
         List<Ticket> tickets = new ArrayList<>();
-        MySql ="Select * from ticket";
+        MySql = "Select * from ticket";
         try {
             PreparedStatement pstmt = conn.prepareStatement(MySql);
             ResultSet rs = pstmt.executeQuery();
@@ -200,15 +201,17 @@ public class DaoImpl implements Dao {
                 String t_description = rs.getString("t_description");
                 String t_img = rs.getString("t_img");
                 int t_price = rs.getInt("t_price");
-                tickets.add(new Ticket(t_id, t_name, t_description, t_img,t_price));
+                tickets.add(new Ticket(t_id, t_name, t_description, t_img, t_price));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  tickets;
+        return tickets;
     }
+
     /**
      * 获取指定门票
+     *
      * @return
      */
     @Override
@@ -235,16 +238,16 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public void addCartByt_id(int t_id,String t_name,int t_price) {
-        MySql="insert into cart(c_id,c_name,c_price) values(?,?,?)";
+    public void addCartByt_id(int t_id, String t_name, int t_price) {
+        MySql = "insert into cart(c_id,c_name,c_price) values(?,?,?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(MySql);
             int i = 1;
-            pstmt.setInt(i++,t_id);
-            pstmt.setString(i++,t_name);
-            pstmt.setInt(i++,t_price);
+            pstmt.setInt(i++, t_id);
+            pstmt.setString(i++, t_name);
+            pstmt.setInt(i++, t_price);
             int count = pstmt.executeUpdate();
-            System.out.println("所有影响行数:"+count);
+            System.out.println("所有影响行数:" + count);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -252,13 +255,13 @@ public class DaoImpl implements Dao {
 
     @Override
     public void delCartByt_id(int t_id) {
-        MySql="delete from cart where c_id = ?";
+        MySql = "delete from cart where c_id = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(MySql);
             int i = 1;
-            pstmt.setInt(i++,t_id);
+            pstmt.setInt(i++, t_id);
             int count = pstmt.executeUpdate();
-            System.out.println("所有影响行数:"+count);
+            System.out.println("所有影响行数:" + count);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -268,32 +271,52 @@ public class DaoImpl implements Dao {
     public List<Ticket> queryCarts() {
         List<Ticket> tickets = new ArrayList<>();
         Ticket ticket = new Ticket();
-        MySql= "select * from cart";
+        MySql = "select * from cart";
         try {
             PreparedStatement pstmt = conn.prepareStatement(MySql);
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int c_id = rs.getInt("c_id");
                 String c_name = rs.getString("c_name");
                 int c_price = rs.getInt("c_price");
-                int c_number= rs.getInt("c_number");
-                ticket= new Ticket(c_id,c_name,c_price,c_number);
+                int c_number = rs.getInt("c_number");
+                ticket = new Ticket(c_id, c_name, c_price, c_number);
                 tickets.add(ticket);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  tickets;
+        return tickets;
+    }
+
+    /**
+     * 改变购物车的门票个数
+     *
+     * @param c_id
+     */
+    @Override
+    public void updateC_number(int c_id, int c_number) {
+        MySql = "UPDATE cart SET c_number = ? where c_id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(MySql);
+            int i = 1;
+            pstmt.setInt(i++, c_number);
+            pstmt.setInt(i++, c_id);
+            int count = pstmt.executeUpdate();
+            System.out.println("所有影响行数:" + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<JQXW> jqxwsAll() {
-        List<JQXW>jqxws=new ArrayList<>();
+        List<JQXW> jqxws = new ArrayList<>();
         try {
-            PreparedStatement ps=conn.prepareStatement("select *from wenzhang where lm_id=1");
-            ResultSet rs=ps.executeQuery();
-            while (rs.next()){
-                jqxws.add(new JQXW(rs.getInt("wz_id"),rs.getString("wz_title"),rs.getString("wz_content"),rs.getString("wz_time"),rs.getString("wz_img")));
+            PreparedStatement ps = conn.prepareStatement("select * from wenzhang where lm_id=1");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                jqxws.add(new JQXW(rs.getInt("wz_id"), rs.getString("wz_title"), rs.getString("wz_content"), rs.getString("wz_time"), rs.getString("wz_img")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -303,12 +326,12 @@ public class DaoImpl implements Dao {
 
     @Override
     public List<JQHD> jqhdsAll() {
-        List<JQHD>jqhds=new ArrayList<>();
+        List<JQHD> jqhds = new ArrayList<>();
         try {
-            PreparedStatement ps=conn.prepareStatement("select *from wenzhang where lm_id=3");
-            ResultSet rs=ps.executeQuery();
-            while (rs.next()){
-                jqhds.add(new JQHD(rs.getInt("wz_id"),rs.getString("wz_title"),rs.getString("wz_content"),rs.getString("wz_time"),rs.getString("wz_img")));
+            PreparedStatement ps = conn.prepareStatement("select * from wenzhang where lm_id=3");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                jqhds.add(new JQHD(rs.getInt("wz_id"), rs.getString("wz_title"), rs.getString("wz_content"), rs.getString("wz_time"), rs.getString("wz_img")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -318,12 +341,12 @@ public class DaoImpl implements Dao {
 
     @Override
     public List<JQGG> jqggsAll() {
-        List<JQGG>jqggs=new ArrayList<>();
+        List<JQGG> jqggs = new ArrayList<>();
         try {
-            PreparedStatement ps=conn.prepareStatement("select *from wenzhang where lm_id=2");
-            ResultSet rs=ps.executeQuery();
-            while (rs.next()){
-                jqggs.add(new JQGG(rs.getInt("wz_id"),rs.getString("wz_title"),rs.getString("wz_content"),rs.getString("wz_time"),rs.getString("wz_img")));
+            PreparedStatement ps = conn.prepareStatement("select * from wenzhang where lm_id=2");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                jqggs.add(new JQGG(rs.getInt("wz_id"), rs.getString("wz_title"), rs.getString("wz_content"), rs.getString("wz_time"), rs.getString("wz_img")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -334,20 +357,21 @@ public class DaoImpl implements Dao {
 
     /**
      * 获取购物车中所有门票
+     *
      * @param args
      */
 
 
     //测试是否获取到数据库数据
     public static void main(String[] args) {
-//        Route route = new DaoImpl().routeByr_id(2);
-//        System.out.println(route.getR_id() + "丨" + route.getR_description());
-//        Ticket ticket = new DaoImpl().ticketByt_id(1);
-//        System.out.println(ticket.getT_id()+"|"+ticket.getT_name());
-        List<Ticket> tickets = new DaoImpl().queryCarts();
-        for (Ticket tEach:tickets
-                ) {
-            System.out.println(tEach.getT_id());
-        }
+//       Route route = new DaoImpl().routeByr_id(2);
+//       System.out.println(route.getR_id() + "丨" + route.getR_description());
+//       Ticket ticket = new DaoImpl().ticketByt_id(1);
+//       System.out.println(ticket.getT_id()+"|"+ticket.getT_name());
+//       List<Ticket> tickets = new DaoImpl().queryCarts();
+//       for (Ticket tEach:tickets
+//               ) {
+//           System.out.println(tEach.getT_id());
+//       }
     }
 }

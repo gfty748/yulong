@@ -1,5 +1,6 @@
 package com.tosit.yulong.web.control;
 
+import com.tosit.yulong.web.Utils.JSUtil;
 import com.tosit.yulong.web.daoImp.DaoImpl;
 import com.tosit.yulong.web.entity.Ticket;
 
@@ -22,7 +23,7 @@ public class CartServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         int id = Integer.parseInt(request.getParameter("t_id"));
         String opp = request.getParameter("opp");
-
+        System.out.println("CartServlet 拿到了 id = " + id +"丨opp ="+opp);
         if(opp.equals("add")){
             System.out.println("CartServlet 拿到了 id = " + id +"丨opp ="+opp);
             System.out.println("执行 addCart()");
@@ -50,7 +51,15 @@ public class CartServlet extends HttpServlet {
             System.out.println("CartServlet 拿到了 id = " + id +"丨opp ="+opp);
             System.out.println("执行 delCart()");
             new DaoImpl().delCartByt_id(id);
-            out.print("成功从购物车删除！");
+            int total = new JSUtil().getTotal();
+            out.print("￥"+total+".00");
+        }else if(opp.equals("update")){
+            //更改购物车门票个数
+            int c_number=Integer.parseInt( request.getParameter("c_number"));
+            System.out.println("CartServlet 拿到了 id = " + id +"丨opp ="+opp+"|c_number"+c_number);
+            new DaoImpl().updateC_number(id,c_number);
+            int total = new JSUtil().getTotal();
+            out.print("￥"+total+".00");
         }
     }
 

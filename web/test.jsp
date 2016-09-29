@@ -1,37 +1,46 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
     <title>Title</title>
     <style type="text/css">
-        .jd_title {
-            font-weight: bold;
-            font-size: 24px;
+        span {
+            height: 15px;
+            background: #fff;
+            color: #000;
+            font-size: 12px;
+            line-height: 15px;
+            cursor: pointer;
+            padding: 0 4px
         }
     </style>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("span").click(function () {
+                $(this).siblings(":text").val(eval($(this).siblings(":text").val() + $(this).text() + "1"))
+            });
+            $(".shopp-l").(function () {
+                alert($(this).val())
+            })
+        })
+    </script>
 </head>
 <body>
+<table>
+    <tr>
+        <td>
+            <span> - </span><input type="text" class="shopp-l"/><span>+</span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <%--<span> - </span><input type="text" class="shopp-l"/><span>+</span>--%>
+        </td>
+    </tr>
+</table>
 
-<span style="background-color:#ffff00;">
-    <div>
-        ①丽江
-        &mdash;
-        ②甘海子
-        &mdash;
-        ③蓝月谷
-        &mdash;
-        ④云杉坪
-        &mdash;
-        ⑤雪厨餐厅
-        &mdash;
-        ⑥印象丽江
-    </div>
-</span>
-<c:forEach items="${jds}" var="jd">
-<a class="jd_title">${jd.jd_name}</a><br>
-<img src="${jd.jd_img}">
-${jd.jd_description}
-</c:forEach>
 </body>
 </html>

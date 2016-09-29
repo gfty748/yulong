@@ -1,5 +1,6 @@
 package com.tosit.yulong.web.control;
 
+import com.tosit.yulong.web.Utils.JSUtil;
 import com.tosit.yulong.web.daoImp.DaoImpl;
 import com.tosit.yulong.web.entity.Ticket;
 
@@ -20,15 +21,7 @@ public class ShoppingServlet extends HttpServlet {
         //获取购物车信息
         List<Ticket> tickets = new DaoImpl().queryCarts();
         request.setAttribute("tickets",tickets);
-        //计算现有票务总价
-        int price =0;
-        int number =0;
-        int total =0;
-        for (Ticket tEach:tickets ) {
-            price=tEach.getT_price();
-            number=tEach.getT_number();
-            total +=price*number;
-        }
+        int total = new JSUtil().getTotal();
         request.setAttribute("total",total);
         request.getRequestDispatcher("/shoppingCart.jsp").forward(request,response);
     }

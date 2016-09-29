@@ -50,6 +50,9 @@ public interface Dao {
     //获取购物车中所有预购门票
     List<Ticket> queryCarts();
 
+    //改变购物车中相应门票的个数
+    void updateC_number(int c_id,int c_number);
+
     //获取所有的景区新闻
     List<JQXW> jqxwsAll();
 

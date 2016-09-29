@@ -9,47 +9,58 @@
     <script type="text/javascript" src=" js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src=" js/room-flash.js"></script>
     <script type="text/javascript">
-        //删除
-        function carttoggle(as) {
-            $(as).parent().parent().slideToggle();
-        }
-        function delCart(id) {
-            var xmlhttp;
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp = new XMLHttpRequest();
+            //删除
+            function carttoggle(as) {
+                $(as).parent().parent().slideToggle();
             }
-            else {// code for IE6, IE5
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            var url = "CartServlet?t_id=" + id + "&opp=delete";
-            xmlhttp.open("GET", url, true);
-            xmlhttp.send();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    var massage = xmlhttp.responseText;
-                    alert(massage);
+
+            function delCart(id) {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                var url = "CartServlet?t_id=" + id + "&opp=delete";
+                xmlhttp.open("GET",url,true);
+                xmlhttp.send();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var massage = xmlhttp.responseText;
+                        $(".shopping-btn font").text(massage);
+                    }
                 }
             }
-        }
-        //计算总价
-        function totalPrice(id) {
-            var xmlhttp;
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp = new XMLHttpRequest();
-            }
-            else {// code for IE6, IE5
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            var url = "CartServlet?t_id=" + id + "&opp=delete";
-            xmlhttp.open("GET", url, true);
-            xmlhttp.send();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    var massage = xmlhttp.responseText;
-                    alert(massage);
+            //计算总价
+            //点‘+’和‘-’input值进行加减1的变化同时进行购物车门票数量的改变
+            function update(s, id) {
+                var oldNumber = $(s).siblings(":text").val();
+                if (oldNumber >= 1 && $(s).text() == "+") {
+                    $(s).siblings(":text").val(eval(oldNumber + $(s).text() + "1"));
+                } else if (oldNumber >= 2 && $(s).text() == "-") {
+                    $(s).siblings(":text").val(eval(oldNumber + $(s).text() + "1"));
+                }
+                newNumber = $(s).siblings(":text").val();
+//            alert(newNumber + "|" + id);
+                var xmlhttp;
+                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                var url = "CartServlet?t_id=" + id + "&opp=update&c_number=" + newNumber;
+                xmlhttp.open("GET",url, true);
+                xmlhttp.send();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var massage = xmlhttp.responseText;
+                        $(".shopping-btn font").text(massage);
+//                        alert(massage);
+                    }
                 }
             }
-        }
     </script>
 </head>
 <body>
@@ -136,10 +147,14 @@
                                         <td width="30%">${ticket.t_name} </td>
                                         <td width="15%">￥${ticket.t_price}.00</td>
                                         <td width="15%"></td>
-                                        <td width="15%"><span>-</span><input type="text" class="shopp-l"  value="${ticket.t_number}"/><span>+</span>
+                                        <td width="15%">
+                                            <span onclick="update(this,${ticket.t_id})">-</span><input
+                                                type="text" class="shopp-l" value="${ticket.t_number}" readonly/><span
+                                                onclick="update(this,${ticket.t_id})">+</span>
                                         </td>
-                                        <td width="15%"><a href="javascript:"
-                                                           onclick="delCart(${ticket.t_id}),carttoggle(this)">删除</a>
+                                        <td width="15%">
+                                            <a href="javascript:"
+                                               onclick="delCart(${ticket.t_id}),carttoggle(this)">删除</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
