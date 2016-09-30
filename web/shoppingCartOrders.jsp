@@ -60,37 +60,35 @@
             <div class="stageLeft">
 
                 <!--玉龙雪山商务网-三级-景点+票务 begin-->
+
                 <div class="stage-spot">
 
                     <div class="spot-title"><span><a href="javascript:">填写并核对订单信息</a></span></div>
 
                     <div class="shopping">
-
                         <h2 class="shopping-title">取票人信息</h2>
-
-
-                        <div class="shopping-input">
-                            <dl>
-                                <dt>取票人姓名</dt>
-                                <dd><input type="text" class="shopp-check"/></dd>
-                            </dl>
-                            <dl>
-                                <dt>取票人证件</dt>
-                                <dd><input type="text" class="shopp-check"/></dd>
-                            </dl>
-                            <dl>
-                                <dt>取票电话</dt>
-                                <dd><input type="text" class="shopp-check"/></dd>
-                            </dl>
-                        </div>
-
+                        <form action="ShoppingServlet" name="userInfo" method="post">
+                            <input type="hidden" name="http" value="buy">
+                            <div class="shopping-input">
+                                <dl>
+                                    <dt>取票人姓名</dt>
+                                    <dd><input type="text" class="shopp-check" name="username"/></dd>
+                                </dl>
+                                <dl>
+                                    <dt>取票人证件</dt>
+                                    <dd><input type="text" class="shopp-check" name="certificate"/></dd>
+                                </dl>
+                                <dl>
+                                    <dt>取票电话</dt>
+                                    <dd><input type="text" class="shopp-check" name="phone"/></dd>
+                                </dl>
+                            </div>
+                        </form>
                         <h2 class="shopping-title">支付方式 </h2>
 
                         <div class="shopping-fs">银行卡在线支付</div>
 
                         <h2 class="shopping-title">商品清单 </h2>
-
-
                         <div class="shopping-list">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <c:forEach items="${tickets}" var="ticket">
@@ -100,21 +98,13 @@
                                         <td width="30%">*${ticket.t_number}</td>
                                     </tr>
                                 </c:forEach>
-                                <%--<tr>--%>
-                                <%--<td width="40%" align="center" height="55">大玉龙雪山景区联票 </td>--%>
-                                <%--<td width="30%">￥315.00</td>--%>
-                                <%--<td width="30%">*1</td>--%>
-                                <%--</tr>--%>
                             </table>
                         </div>
-
                         <div class="shopping-btn">
-                            <a href="ShoppingServlet?http=buy">提交订单</a> <span>应付总额： <font>￥${total}.00</font></span>
+                            <a href="javascript:document.userInfo.submit();">提交订单</a>
+                            <span>应付总额： <font>￥${total}.00</font></span>
                         </div>
-
                     </div>
-
-
                 </div>
                 <!--玉龙雪山商务网-三级-景点+票务 end-->
 

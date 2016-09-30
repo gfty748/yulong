@@ -12,9 +12,9 @@ public class DDHUtil {
         ddh+=time;
         return  ddh;
     }
-
-    public static void main(String[] args) {
-        String ddh = new DDHUtil().getDDH("王东东");
-        System.out.println(ddh);
-    }
+//
+//    public static void main(String[] args) {
+//        String ddh = new DDHUtil().getDDH("王东东");
+//        System.out.println(ddh);
+//    }
 }

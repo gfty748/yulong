@@ -30,7 +30,7 @@ public class TestServlet extends HttpServlet {
             System.out.println("找不到指定的文件");
         }
         request.setAttribute("txt", txt);
-        request.getRequestDispatcher("com.test.jsp").forward(request, response);
+        request.getRequestDispatcher("com.shoppingSuccess.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

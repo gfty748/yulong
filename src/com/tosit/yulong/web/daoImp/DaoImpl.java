@@ -354,6 +354,72 @@ public class DaoImpl implements Dao {
         return jqggs;
     }
 
+    /**
+     * 查询所有oder
+     * @return
+     */
+    @Override
+    public List<Oder> odersQuery(String od_id) {
+        List<Oder>  oders = new ArrayList<>();
+        MySql ="select * from oders where od_id=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(MySql);
+            int i =1 ;
+            pstmt.setString(i++,od_id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("od_id");
+                String userName = rs.getString("od_username");
+                String phone = rs.getString("od_phone");
+                String certificate =rs.getString("od_certificate");
+                String goods = rs.getString("od_goods");
+                int total = rs.getInt("od_total");
+                oders.add(new Oder(id,userName,phone,certificate,goods,total));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return oders;
+    }
+
+    /**
+     * 添加oder
+     * @param id
+     * @param userName
+     * @param phone
+     * @param certificate
+     * @param goods
+     * @param total
+     */
+    @Override
+    public void addOder(String id, String userName, String phone, String certificate, String goods, int total) {
+        MySql = "insert into oders values(?,?,?,?,?,?)";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(MySql);
+            int i=1;
+            pstmt.setString(i++,id);
+            pstmt.setString(i++,userName);
+            pstmt.setString(i++,phone);
+            pstmt.setString(i++,certificate);
+            pstmt.setString(i++,goods);
+            pstmt.setInt(i++,total);
+            int count = pstmt.executeUpdate();
+            System.out.println("影响了"+count+"行");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delCartAll() {
+        try {
+            PreparedStatement pstmt = conn.prepareStatement("delete from cart");
+            int count =pstmt.executeUpdate();
+            System.out.println("影响了："+0+"行");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 获取购物车中所有门票
@@ -373,5 +439,6 @@ public class DaoImpl implements Dao {
 //               ) {
 //           System.out.println(tEach.getT_id());
 //       }
+//        new DaoImpl().addOder("AAAAA","v","b","s","1",500);
     }
 }

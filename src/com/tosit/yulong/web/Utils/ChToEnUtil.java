@@ -1,5 +1,6 @@
 package com.tosit.yulong.web.Utils;
 
+
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -68,9 +69,9 @@ public class ChToEnUtil {
         return strBuf.toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(getPingYin("綦江qq县"));
-        System.out.println(getPinYinHeadChar("綦江县"));
-        System.out.println(getCnASCII("綦江县"));
-    }
+//    public static void main(String[] args) {
+//        System.out.println(getPingYin("綦江qq县"));
+//        System.out.println(getPinYinHeadChar("綦江县21"));
+//        System.out.println(getCnASCII("綦江县"));
+//    }
 }

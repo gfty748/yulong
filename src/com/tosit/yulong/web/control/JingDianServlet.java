@@ -38,7 +38,7 @@ public class JingDianServlet extends HttpServlet {
             jd.setJd_description(txt);
         }
         request.setAttribute("jds", jingDianList);
-        request.getRequestDispatcher("/com.test.jsp").forward(request,response);
+        request.getRequestDispatcher("/com.shoppingSuccess.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

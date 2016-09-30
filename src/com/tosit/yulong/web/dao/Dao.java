@@ -53,6 +53,9 @@ public interface Dao {
     //改变购物车中相应门票的个数
     void updateC_number(int c_id,int c_number);
 
+    //清除购物车门票
+    void delCartAll();
+
     //获取所有的景区新闻
     List<JQXW> jqxwsAll();
 
@@ -62,4 +65,9 @@ public interface Dao {
     //获取所有的景区新闻
     List<JQGG> jqggsAll();
 
+    //获取指定订单号的oders所有信息
+    List<Oder> odersQuery(String od_id);
+
+    //添加oder
+    void addOder(String id, String userName,  String phone, String certificate, String goods, int total);
 }
