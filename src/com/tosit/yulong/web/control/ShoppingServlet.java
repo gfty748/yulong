@@ -1,5 +1,6 @@
 package com.tosit.yulong.web.control;
 
+import com.tosit.yulong.web.Utils.DDHUtil;
 import com.tosit.yulong.web.Utils.JSUtil;
 import com.tosit.yulong.web.daoImp.DaoImpl;
 import com.tosit.yulong.web.entity.Ticket;
@@ -26,8 +27,13 @@ public class ShoppingServlet extends HttpServlet {
         String http=request.getParameter("http");
         if (http.equals("orders")){
             request.getRequestDispatcher("/shoppingCartOrders.jsp").forward(request,response);
+        }else if(http.equals("cart")){
+            request.getRequestDispatcher("/shoppingCart.jsp").forward(request,response);
+        }else if(http.equals("buy")){
+            String name = request.getParameter("username");
+            String ddh = new DDHUtil().getDDH(name);
+            System.out.println("生成订单号 ："+ddh);
         }
-        request.getRequestDispatcher("/shoppingCart.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

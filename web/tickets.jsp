@@ -112,7 +112,7 @@
                             </c:forEach>
                         </ul>
                     </div>
-                    <div class="feature-b"><a href="ShoppingServlet">购物车购买</a></div>
+                    <div class="feature-b"><a href="ShoppingServlet?http=cart">购物车购买</a></div>
                 </div>
                 <!--玉龙雪山商务网-三级-景点+票务 end-->
 
